@@ -1,7 +1,7 @@
 FROM ubuntu:14.04
 
 # bootstrap environment
-ENV DEPS_HOME="/root/deps"
+ENV DEPS_HOME="/root/janus"
 ENV SCRIPTS_PATH="/tmp/scripts"
 
 # use aarnet mirror for quicker building while developing
@@ -25,13 +25,21 @@ RUN apt-get -y update && apt-get install -y libmicrohttpd-dev \
   automake \
   build-essential \
   subversion \
-  git
+  git \
+  cmake \
+  wget
 
-ADD scripts/bootstrap.sh $SCRIPTS_PATH
+ADD scripts/bootstrap.sh $SCRIPTS_PATH/
 RUN $SCRIPTS_PATH/bootstrap.sh
 
-ADD scripts/usrsctp.sh $SCRIPTS_PATH
+ADD scripts/usrsctp.sh $SCRIPTS_PATH/
 RUN $SCRIPTS_PATH/usrsctp.sh
 
-ADD scripts/libwebsockets.sh $SCRIPTS_PATH
+ADD scripts/libwebsockets.sh $SCRIPTS_PATH/
 RUN $SCRIPTS_PATH/libwebsockets.sh
+
+ENV JANUS_RELEASE="v0.0.9"
+ADD scripts/janus.sh $SCRIPTS_PATH/
+RUN $SCRIPTS_PATH/janus.sh
+
+CMD ["/root/janus/bin/janus"]
