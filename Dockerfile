@@ -2,6 +2,7 @@ FROM ubuntu:14.04
 
 # bootstrap environment
 ENV DEPS_HOME="/root/deps"
+ENV SCRIPTS_PATH="/tmp/scripts"
 
 # use aarnet mirror for quicker building while developing
 RUN sed -i 's/archive.ubuntu.com/mirror.aarnet.edu.au\/pub\/ubuntu\/archive/g' /etc/apt/sources.list
@@ -26,6 +27,11 @@ RUN apt-get -y update && apt-get install -y libmicrohttpd-dev \
   subversion \
   git
 
-ADD scripts/* /tmp/scripts/
-RUN /tmp/scripts/bootstrap.sh
-RUN /tmp/scripts/usrsctp.sh
+ADD scripts/bootstrap.sh $SCRIPTS_PATH
+RUN $SCRIPTS_PATH/bootstrap.sh
+
+ADD scripts/usrsctp.sh $SCRIPTS_PATH
+RUN $SCRIPTS_PATH/usrsctp.sh
+
+ADD scripts/libwebsockets.sh $SCRIPTS_PATH
+RUN $SCRIPTS_PATH/libwebsockets.sh
