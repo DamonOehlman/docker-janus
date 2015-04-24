@@ -8,3 +8,6 @@ shell: image
 
 image:
 	@docker build -t $(TEMPLATE_NAME) .
+
+stop:
+	docker ps | grep janus | cut -f1 -d' ' | xargs docker stop
