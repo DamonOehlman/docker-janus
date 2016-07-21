@@ -8,7 +8,7 @@ openssl req \
   -days 365 \
   -nodes \
   -x509 \
-  -subj "/C=AU/ST=NSW/L=Sydney/O=JanusDemo/CN=janus.test.com" \
+  -subj "/C=US/ST=CA/L=San Francisco/O=int80 DBA/CN=janus.poz.party" \
   -keyout $DEPS_HOME/certs/janus.key \
   -out $DEPS_HOME/certs/janus.pem
 
@@ -20,7 +20,7 @@ cd janus*
 ./autogen.sh
 
 # TODO: fix websocket support as it should work
-./configure --prefix=$DEPS_HOME --disable-websockets --disable-rabbitmq --disable-docs
+./configure --prefix=$DEPS_HOME --disable-rabbitmq --disable-docs
 make
 make install
 

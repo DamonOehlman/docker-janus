@@ -1,11 +1,9 @@
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 
 # bootstrap environment
 ENV DEPS_HOME="/root/janus"
+ENV CONFIG_PATH="/root/janus/etc/janus"
 ENV SCRIPTS_PATH="/tmp/scripts"
-
-# use aarnet mirror for quicker building while developing
-RUN sed -i 's/archive.ubuntu.com/mirror.aarnet.edu.au\/pub\/ubuntu\/archive/g' /etc/apt/sources.list
 
 # install baseline package dependencies
 RUN apt-get -y update && apt-get install -y libmicrohttpd-dev \
@@ -38,7 +36,7 @@ RUN $SCRIPTS_PATH/usrsctp.sh
 ADD scripts/libwebsockets.sh $SCRIPTS_PATH/
 RUN $SCRIPTS_PATH/libwebsockets.sh
 
-ENV JANUS_RELEASE="v0.0.9"
+ENV JANUS_RELEASE="v0.1.1"
 ADD scripts/janus.sh $SCRIPTS_PATH/
 RUN $SCRIPTS_PATH/janus.sh
 
