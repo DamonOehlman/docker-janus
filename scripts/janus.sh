@@ -8,7 +8,7 @@ openssl req \
   -days 365 \
   -nodes \
   -x509 \
-  -subj "/C=US/ST=CA/L=San Francisco/O=int80 DBA/CN=janus.poz.party" \
+  -subj "/C=AU/ST=NSW/L=Sydney/O=JanusDemo/CN=janus.test.com" \
   -keyout $DEPS_HOME/certs/janus.key \
   -out $DEPS_HOME/certs/janus.pem
 
