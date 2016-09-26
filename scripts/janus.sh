@@ -19,9 +19,8 @@ tar xf janus.tar.gz
 cd janus*
 ./autogen.sh
 
-# TODO: fix websocket support as it should work
-./configure --prefix=$DEPS_HOME --disable-websockets --disable-rabbitmq --disable-docs
-make
+./configure --prefix=$DEPS_HOME --disable-rabbitmq --disable-docs
+make -j4
 make install
 
 # make the janus configuration
