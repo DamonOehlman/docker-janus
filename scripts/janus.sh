@@ -8,18 +8,17 @@ openssl req \
   -days 365 \
   -nodes \
   -x509 \
-  -subj "/C=AU/ST=NSW/L=Sydney/O=JanusDemo/CN=janus.test.com" \
+  -subj "${CERT_SUBJECT}" \
   -keyout $DEPS_HOME/certs/janus.key \
   -out $DEPS_HOME/certs/janus.pem
 
-wget https://github.com/meetecho/janus-gateway/archive/$JANUS_RELEASE.tar.gz -O  $DEPS_HOME/dl/janus.tar.gz
+git clone https://github.com/meetecho/janus-gateway.git $DEPS_HOME/dl/janus-gateway
+cd $DEPS_HOME/dl/janus-gateway
+git checkout "v${JANUS_VERSION}"
 
-cd $DEPS_HOME/dl
-tar xf janus.tar.gz
-cd janus*
 ./autogen.sh
 
-./configure --prefix=$DEPS_HOME --disable-rabbitmq --disable-docs
+./configure --prefix=$DEPS_HOME --disable-docs
 make -j4
 make install
 
